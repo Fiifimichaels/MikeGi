@@ -41,7 +41,7 @@ serve(async (req) => {
 
     // Check if email or phone already exists
     const { data: existingVendor, error: checkError } = await supabase
-      .from('vendors')
+      .from('mikegi_vendors')
       .select('id, email, phone')
       .or(`email.eq.${registrationData.email},phone.eq.${registrationData.phone}`)
       .single()
@@ -63,7 +63,7 @@ serve(async (req) => {
 
     // Create vendor account
     const { data: vendor, error: vendorError } = await supabase
-      .from('vendors')
+      .from('mikegi_vendors')
       .insert({
         email: registrationData.email,
         phone: registrationData.phone,
@@ -108,13 +108,13 @@ serve(async (req) => {
     }))
 
     const { error: shopsError } = await supabase
-      .from('vendor_shops')
+      .from('mikegi_vendor_shops')
       .insert(shopInserts)
 
     if (shopsError) {
       console.error('Shops creation error:', shopsError)
       // Rollback vendor creation
-      await supabase.from('vendors').delete().eq('id', vendor.id)
+      await supabase.from('mikegi_vendors').delete().eq('id', vendor.id)
       
       return new Response(
         JSON.stringify({
@@ -130,7 +130,7 @@ serve(async (req) => {
 
     // Create initial subscription record
     const { error: subscriptionError } = await supabase
-      .from('vendor_subscriptions')
+      .from('mikegi_vendor_subscriptions')
       .insert({
         vendor_id: vendor.id,
         amount: 50.00,
@@ -146,7 +146,7 @@ serve(async (req) => {
 
     // Send welcome notification
     await supabase
-      .from('vendor_notifications')
+      .from('mikegi_vendor_notifications')
       .insert({
         vendor_id: vendor.id,
         title: 'Welcome to MikeGi!',

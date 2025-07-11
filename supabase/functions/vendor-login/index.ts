@@ -26,7 +26,7 @@ serve(async (req) => {
 
     // Find vendor by email
     const { data: vendor, error } = await supabase
-      .from('vendors')
+      .from('mikegi_vendors')
       .select('*')
       .eq('email', email)
       .single()
