@@ -14,6 +14,7 @@ import ThankYou from './pages/ThankYou';
 import AdminLogin from './admin/pages/AdminLogin';
 import AdminDashboard from './admin/pages/AdminDashboard';
 import ChatBot from './components/ChatBot';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
                       <Route path="/thank-you" element={<ThankYou />} />
                     </Routes>
                     <ChatBot />
+                    <Footer />
                   </>
                 } />
               </Routes>
