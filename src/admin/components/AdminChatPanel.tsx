@@ -443,16 +443,18 @@ const AdminChatPanel: React.FC = () => {
 
       {/* Enhanced Admin Chat Panel */}
       {isOpen && (
-        <div className={`fixed bottom-24 left-6 bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 z-50 transition-all duration-300 ${
-          isMinimized ? 'w-80 h-16' : 'w-[800px] h-[600px]'
+        <div className={`fixed bottom-24 left-2 sm:left-6 bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 z-50 transition-all duration-300 ${
+          isMinimized 
+            ? 'w-72 sm:w-80 h-16' 
+            : 'w-[calc(100vw-16px)] sm:w-[600px] lg:w-[800px] h-[calc(100vh-120px)] sm:h-[500px] lg:h-[600px]'
         }`}>
           {/* Enhanced Header */}
-          <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-t-lg">
+          <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-t-lg flex-shrink-0">
             <div className="flex items-center space-x-3">
               <MessageCircle className="w-5 h-5" />
               <div>
-                <span className="font-semibold">Admin Chat Center</span>
-                <div className="text-xs text-purple-100">
+                <span className="font-semibold text-sm sm:text-base">Admin Chat Center</span>
+                <div className="text-xs text-purple-100 hidden sm:block">
                   {filteredSessions.length} conversations • {totalUnread} unread
                 </div>
               </div>
@@ -474,9 +476,9 @@ const AdminChatPanel: React.FC = () => {
           </div>
 
           {!isMinimized && (
-            <div className="flex h-[calc(100%-64px)]">
+            <div className="flex flex-col sm:flex-row h-[calc(100%-56px)] sm:h-[calc(100%-64px)]">
               {/* Enhanced Chat Sessions List */}
-              <div className="w-80 border-r border-gray-200 dark:border-gray-700 flex flex-col">
+              <div className="w-full sm:w-72 lg:w-80 border-b sm:border-b-0 sm:border-r border-gray-200 dark:border-gray-700 flex flex-col max-h-48 sm:max-h-none">
                 {/* Search and Filters */}
                 <div className="p-3 border-b border-gray-200 dark:border-gray-700 space-y-3">
                   <div className="relative">
@@ -499,13 +501,14 @@ const AdminChatPanel: React.FC = () => {
                       <button
                         key={filter.key}
                         onClick={() => setActiveFilter(filter.key as any)}
-                        className={`flex-1 px-2 py-1 text-xs rounded-md transition-colors ${
+                        className={`flex-1 px-1 sm:px-2 py-1 text-xs rounded-md transition-colors ${
                           activeFilter === filter.key
                             ? 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300'
                             : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
                         }`}
                       >
-                        {filter.label} ({filter.count})
+                        <span className="hidden sm:inline">{filter.label} ({filter.count})</span>
+                        <span className="sm:hidden">{filter.label.charAt(0)} {filter.count}</span>
                       </button>
                     ))}
                   </div>
@@ -516,7 +519,7 @@ const AdminChatPanel: React.FC = () => {
                   {filteredSessions.length === 0 ? (
                     <div className="p-4 text-center text-gray-500 dark:text-gray-400">
                       <MessageCircle className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                      <p className="text-sm">
+                      <p className="text-xs sm:text-sm">
                         {searchQuery ? 'No conversations found' : 'No chats yet'}
                       </p>
                     </div>
@@ -529,52 +532,52 @@ const AdminChatPanel: React.FC = () => {
                           selectedChat === session.chatId ? 'bg-purple-50 dark:bg-purple-900 border-l-4 border-l-purple-500' : ''
                         }`}
                       >
-                        <div className="flex items-start justify-between mb-2">
+                        <div className="flex items-start justify-between mb-1 sm:mb-2">
                           <div className="flex items-center space-x-2">
                             <div className="relative">
-                              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
-                                <User className="w-4 h-4 text-white" />
+                              <div className="w-6 sm:w-8 h-6 sm:h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+                                <User className="w-3 sm:w-4 h-3 sm:h-4 text-white" />
                               </div>
                               {session.isOnline && (
-                                <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                                <div className="absolute -bottom-1 -right-1 w-2 sm:w-3 h-2 sm:h-3 bg-green-500 rounded-full border-2 border-white"></div>
                               )}
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center space-x-2">
-                                <span className="font-medium text-sm text-gray-900 dark:text-white truncate">
+                                <span className="font-medium text-xs sm:text-sm text-gray-900 dark:text-white truncate">
                                   {session.userName}
                                 </span>
-                                <span className={`px-1.5 py-0.5 text-xs rounded-full ${getPriorityColor(session.priority)}`}>
+                                <span className={`px-1 sm:px-1.5 py-0.5 text-xs rounded-full hidden sm:inline ${getPriorityColor(session.priority)}`}>
                                   {session.priority}
                                 </span>
                               </div>
-                              <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
-                                <Phone className="w-3 h-3 mr-1" />
+                              <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 hidden sm:flex">
+                                <Phone className="w-2 sm:w-3 h-2 sm:h-3 mr-1" />
                                 <span className="truncate">{session.userPhone}</span>
                               </div>
                             </div>
                           </div>
                           <div className="flex flex-col items-end space-y-1">
                             {session.unreadCount > 0 && (
-                              <div className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                              <div className="bg-red-500 text-white text-xs rounded-full w-4 sm:w-5 h-4 sm:h-5 flex items-center justify-center">
                                 {session.unreadCount > 9 ? '9+' : session.unreadCount}
                               </div>
                             )}
-                            <span className="text-xs text-gray-400">
+                            <span className="text-xs text-gray-400 hidden sm:inline">
                               {formatTime(session.lastMessageTime)}
                             </span>
                           </div>
                         </div>
                         
-                        <p className="text-xs text-gray-600 dark:text-gray-300 truncate mb-2">
+                        <p className="text-xs text-gray-600 dark:text-gray-300 truncate mb-1 sm:mb-2 hidden sm:block">
                           {session.lastMessage}
                         </p>
                         
                         <div className="flex items-center justify-between">
-                          <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(session.status)}`}>
+                          <span className={`px-1 sm:px-2 py-1 text-xs rounded-full ${getStatusColor(session.status)}`}>
                             {session.status}
                           </span>
-                          <div className="flex items-center space-x-1">
+                          <div className="flex items-center space-x-1 hidden sm:flex">
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();
@@ -606,63 +609,63 @@ const AdminChatPanel: React.FC = () => {
                 {selectedChat ? (
                   <>
                     {/* Chat Header */}
-                    <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700">
+                    <div className="p-2 sm:p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700 flex-shrink-0">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
                           <div className="relative">
-                            <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
-                              <User className="w-5 h-5 text-white" />
+                            <div className="w-8 sm:w-10 h-8 sm:h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+                              <User className="w-4 sm:w-5 h-4 sm:h-5 text-white" />
                             </div>
                             {chatSessions.find(s => s.chatId === selectedChat)?.isOnline && (
-                              <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                              <div className="absolute -bottom-1 -right-1 w-2 sm:w-3 h-2 sm:h-3 bg-green-500 rounded-full border-2 border-white"></div>
                             )}
                           </div>
                           <div>
-                            <div className="font-medium text-gray-900 dark:text-white">
+                            <div className="font-medium text-sm sm:text-base text-gray-900 dark:text-white">
                               {chatSessions.find(s => s.chatId === selectedChat)?.userName}
                             </div>
-                            <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center space-x-2">
-                              <Phone className="w-3 h-3" />
+                            <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 flex items-center space-x-2">
+                              <Phone className="w-2 sm:w-3 h-2 sm:h-3" />
                               <span>{chatSessions.find(s => s.chatId === selectedChat)?.userPhone}</span>
                               {chatSessions.find(s => s.chatId === selectedChat)?.isOnline && (
-                                <span className="text-green-500">• Online</span>
+                                <span className="text-green-500 hidden sm:inline">• Online</span>
                               )}
                             </div>
                           </div>
                         </div>
                         
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-1 sm:space-x-2">
                           <button
                             onClick={() => updateChatStatus(selectedChat, 'resolved')}
-                            className="p-2 text-green-600 hover:bg-green-50 dark:hover:bg-green-900 rounded-lg transition-colors"
+                            className="p-1 sm:p-2 text-green-600 hover:bg-green-50 dark:hover:bg-green-900 rounded-lg transition-colors"
                             title="Mark as resolved"
                           >
-                            <CheckCircle2 className="w-4 h-4" />
+                            <CheckCircle2 className="w-3 sm:w-4 h-3 sm:h-4" />
                           </button>
                           <button
                             onClick={() => updateChatStatus(selectedChat, 'archived')}
-                            className="p-2 text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                            className="p-1 sm:p-2 text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors"
                             title="Archive chat"
                           >
-                            <Archive className="w-4 h-4" />
+                            <Archive className="w-3 sm:w-4 h-3 sm:h-4" />
                           </button>
                         </div>
                       </div>
                     </div>
 
                     {/* Messages */}
-                    <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-gray-50 dark:bg-gray-900">
+                    <div className="flex-1 p-2 sm:p-4 overflow-y-auto space-y-2 sm:space-y-3 bg-gray-50 dark:bg-gray-900">
                       {messages.map((message) => (
                         <div
                           key={message.id}
                           className={`flex ${message.sender_type === 'admin' ? 'justify-end' : 'justify-start'}`}
                         >
-                          <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl shadow-sm ${
+                          <div className={`max-w-[80%] sm:max-w-xs lg:max-w-md px-3 sm:px-4 py-2 rounded-2xl shadow-sm ${
                             message.sender_type === 'admin'
                               ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
                               : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-600'
                           }`}>
-                            <p className="text-sm">{message.message}</p>
+                            <p className="text-xs sm:text-sm">{message.message}</p>
                             <div className="flex items-center justify-between mt-1">
                               <p className={`text-xs ${
                                 message.sender_type === 'admin' 
@@ -675,7 +678,7 @@ const AdminChatPanel: React.FC = () => {
                                 })}
                               </p>
                               {message.sender_type === 'admin' && (
-                                <CheckCircle2 className="w-3 h-3 text-purple-200" />
+                                <CheckCircle2 className="w-2 sm:w-3 h-2 sm:h-3 text-purple-200" />
                               )}
                             </div>
                           </div>
@@ -684,11 +687,11 @@ const AdminChatPanel: React.FC = () => {
                       
                       {isTyping && (
                         <div className="flex justify-start">
-                          <div className="bg-white dark:bg-gray-700 px-4 py-2 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-600">
+                          <div className="bg-white dark:bg-gray-700 px-3 sm:px-4 py-2 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-600">
                             <div className="flex space-x-1">
-                              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                              <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                              <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                              <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                             </div>
                           </div>
                         </div>
@@ -699,14 +702,14 @@ const AdminChatPanel: React.FC = () => {
 
                     {/* Quick Replies */}
                     {showQuickReplies && (
-                      <div className="p-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                      <div className="p-2 sm:p-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 flex-shrink-0">
                         <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Quick Replies:</div>
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-32 overflow-y-auto">
                           {quickReplies.map((reply, index) => (
                             <button
                               key={index}
                               onClick={() => handleQuickReply(reply)}
-                              className="text-left p-2 text-xs bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900 transition-colors"
+                              className="text-left p-1.5 sm:p-2 text-xs bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900 transition-colors"
                             >
                               {reply}
                             </button>
@@ -716,7 +719,7 @@ const AdminChatPanel: React.FC = () => {
                     )}
 
                     {/* Enhanced Message Input */}
-                    <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+                    <div className="p-2 sm:p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex-shrink-0">
                       <form onSubmit={handleSendMessage} className="space-y-3">
                         <div className="flex space-x-2">
                           <div className="flex-1 relative">
@@ -724,24 +727,24 @@ const AdminChatPanel: React.FC = () => {
                               type="text"
                               value={newMessage}
                               onChange={(e) => setNewMessage(e.target.value)}
-                              className="w-full px-4 py-2 pr-12 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                              className="w-full px-3 sm:px-4 py-2 pr-10 sm:pr-12 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
                               placeholder="Type your message..."
                             />
                             <button
                               type="button"
                               onClick={() => setShowQuickReplies(!showQuickReplies)}
-                              className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                              className="absolute right-1 sm:right-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
                               title="Quick replies"
                             >
-                              <MoreVertical className="w-4 h-4" />
+                              <MoreVertical className="w-3 sm:w-4 h-3 sm:h-4" />
                             </button>
                           </div>
                           <button
                             type="submit"
                             disabled={!newMessage.trim()}
-                            className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-2 rounded-lg hover:from-purple-700 hover:to-blue-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-2 rounded-lg hover:from-purple-700 hover:to-blue-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
                           >
-                            <Send className="w-4 h-4" />
+                            <Send className="w-3 sm:w-4 h-3 sm:h-4" />
                           </button>
                         </div>
                       </form>
@@ -750,9 +753,9 @@ const AdminChatPanel: React.FC = () => {
                 ) : (
                   <div className="flex-1 flex items-center justify-center text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900">
                     <div className="text-center">
-                      <MessageCircle className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                      <h3 className="text-lg font-medium mb-2">Admin Chat Center</h3>
-                      <p className="text-sm">Select a conversation to start chatting with customers</p>
+                      <MessageCircle className="w-8 sm:w-12 h-8 sm:h-12 mx-auto mb-4 opacity-50" />
+                      <h3 className="text-base sm:text-lg font-medium mb-2">Admin Chat Center</h3>
+                      <p className="text-xs sm:text-sm px-4">Select a conversation to start chatting with customers</p>
                     </div>
                   </div>
                 )}

@@ -296,25 +296,25 @@ const AdminDashboard: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pb-20 sm:pb-0">
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
-              <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
+              <div className="w-6 sm:w-8 h-6 sm:h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">MG</span>
               </div>
-              <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+              <h1 className="text-lg sm:text-2xl font-bold text-gray-900">Admin Dashboard</h1>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-gray-700">Welcome, {admin?.name}</span>
+              <span className="text-gray-700 text-sm sm:text-base hidden sm:inline">Welcome, {admin?.name}</span>
               <button
                 onClick={handleLogout}
-                className="flex items-center space-x-1 text-gray-500 hover:text-gray-700 transition-colors"
+                className="flex items-center space-x-1 text-gray-500 hover:text-gray-700 transition-colors text-sm"
               >
-                <LogOut className="w-4 h-4" />
-                <span>Logout</span>
+                <LogOut className="w-3 sm:w-4 h-3 sm:h-4" />
+                <span className="hidden sm:inline">Logout</span>
               </button>
             </div>
           </div>
@@ -323,11 +323,11 @@ const AdminDashboard: React.FC = () => {
 
       {/* Navigation Tabs */}
       <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex space-x-8">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+          <nav className="flex space-x-2 sm:space-x-8 overflow-x-auto">
             <button
               onClick={() => setActiveTab('dashboard')}
-              className={`py-4 px-1 border-b-2 font-medium text-sm ${
+              className={`py-4 px-1 sm:px-2 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap ${
                 activeTab === 'dashboard'
                   ? 'border-purple-500 text-purple-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -337,90 +337,93 @@ const AdminDashboard: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab('cars')}
-              className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 ${
+              className={`py-4 px-1 sm:px-2 border-b-2 font-medium text-xs sm:text-sm flex items-center space-x-1 sm:space-x-2 whitespace-nowrap ${
                 activeTab === 'cars'
                   ? 'border-purple-500 text-purple-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
-              <Car className="w-4 h-4" />
-              <span>Car Rentals</span>
+              <Car className="w-3 sm:w-4 h-3 sm:h-4" />
+              <span className="hidden sm:inline">Car Rentals</span>
+              <span className="sm:hidden">Cars</span>
             </button>
             <button
               onClick={() => setActiveTab('houses')}
-              className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 ${
+              className={`py-4 px-1 sm:px-2 border-b-2 font-medium text-xs sm:text-sm flex items-center space-x-1 sm:space-x-2 whitespace-nowrap ${
                 activeTab === 'houses'
                   ? 'border-purple-500 text-purple-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
-              <HomeIcon className="w-4 h-4" />
-              <span>House Rentals</span>
+              <HomeIcon className="w-3 sm:w-4 h-3 sm:h-4" />
+              <span className="hidden sm:inline">House Rentals</span>
+              <span className="sm:hidden">Houses</span>
             </button>
             <button
               onClick={() => setActiveTab('food')}
-              className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 ${
+              className={`py-4 px-1 sm:px-2 border-b-2 font-medium text-xs sm:text-sm flex items-center space-x-1 sm:space-x-2 whitespace-nowrap ${
                 activeTab === 'food'
                   ? 'border-purple-500 text-purple-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
-              <UtensilsCrossed className="w-4 h-4" />
-              <span>Food Orders</span>
+              <UtensilsCrossed className="w-3 sm:w-4 h-3 sm:h-4" />
+              <span className="hidden sm:inline">Food Orders</span>
+              <span className="sm:hidden">Food</span>
             </button>
           </nav>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-4 sm:py-8">
         {activeTab === 'dashboard' ? (
           <>
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-6 sm:mb-8">
+              <div className="bg-white rounded-xl shadow-sm p-3 sm:p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Total Users</p>
-                    <p className="text-3xl font-bold text-gray-900">{stats.totalUsers}</p>
+                    <p className="text-xs sm:text-sm font-medium text-gray-600">Total Users</p>
+                    <p className="text-xl sm:text-3xl font-bold text-gray-900">{stats.totalUsers}</p>
                   </div>
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <Users className="w-6 h-6 text-blue-600" />
+                  <div className="w-8 sm:w-12 h-8 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <Users className="w-4 sm:w-6 h-4 sm:h-6 text-blue-600" />
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl shadow-sm p-6">
+              <div className="bg-white rounded-xl shadow-sm p-3 sm:p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Total Orders</p>
-                    <p className="text-3xl font-bold text-gray-900">{stats.totalOrders}</p>
+                    <p className="text-xs sm:text-sm font-medium text-gray-600">Total Orders</p>
+                    <p className="text-xl sm:text-3xl font-bold text-gray-900">{stats.totalOrders}</p>
                   </div>
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                    <TrendingUp className="w-6 h-6 text-green-600" />
+                  <div className="w-8 sm:w-12 h-8 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <TrendingUp className="w-4 sm:w-6 h-4 sm:h-6 text-green-600" />
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl shadow-sm p-6">
+              <div className="bg-white rounded-xl shadow-sm p-3 sm:p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Total Revenue</p>
-                    <p className="text-3xl font-bold text-gray-900">GH₵{stats.totalRevenue.toFixed(2)}</p>
+                    <p className="text-xs sm:text-sm font-medium text-gray-600">Total Revenue</p>
+                    <p className="text-lg sm:text-3xl font-bold text-gray-900">GH₵{stats.totalRevenue.toFixed(2)}</p>
                   </div>
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                    <DollarSign className="w-6 h-6 text-purple-600" />
+                  <div className="w-8 sm:w-12 h-8 sm:h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <DollarSign className="w-4 sm:w-6 h-4 sm:h-6 text-purple-600" />
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl shadow-sm p-6">
+              <div className="bg-white rounded-xl shadow-sm p-3 sm:p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Pending Orders</p>
-                    <p className="text-3xl font-bold text-gray-900">{stats.pendingOrders}</p>
+                    <p className="text-xs sm:text-sm font-medium text-gray-600">Pending Orders</p>
+                    <p className="text-xl sm:text-3xl font-bold text-gray-900">{stats.pendingOrders}</p>
                   </div>
-                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                    <Calendar className="w-6 h-6 text-orange-600" />
+                  <div className="w-8 sm:w-12 h-8 sm:h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                    <Calendar className="w-4 sm:w-6 h-4 sm:h-6 text-orange-600" />
                   </div>
                 </div>
               </div>
@@ -428,29 +431,29 @@ const AdminDashboard: React.FC = () => {
 
             {/* Recent Orders */}
             <div className="bg-white rounded-xl shadow-sm">
-              <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-900">Recent Orders</h2>
+              <div className="px-3 sm:px-6 py-4 border-b border-gray-200">
+                <h2 className="text-base sm:text-lg font-semibold text-gray-900">Recent Orders</h2>
               </div>
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto -mx-2 sm:mx-0">
                 <table className="w-full">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Order ID
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Customer
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
                         Service
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Amount
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Status
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">
                         Date
                       </th>
                     </tr>
@@ -458,29 +461,29 @@ const AdminDashboard: React.FC = () => {
                   <tbody className="bg-white divide-y divide-gray-200">
                     {orders.length === 0 ? (
                       <tr>
-                        <td colSpan={6} className="px-6 py-4 text-center text-gray-500">
+                        <td colSpan={6} className="px-2 sm:px-6 py-4 text-center text-gray-500 text-sm">
                           No orders found
                         </td>
                       </tr>
                     ) : (
                       orders.map((order) => (
                         <tr key={order.id} className="hover:bg-gray-50">
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                          <td className="px-2 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                             #{order.id.slice(-6)}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
                             <div>
-                              <div className="text-sm font-medium text-gray-900">{order.user_name}</div>
-                              <div className="text-sm text-gray-500">{order.user_email}</div>
+                              <div className="text-xs sm:text-sm font-medium text-gray-900">{order.user_name}</div>
+                              <div className="text-xs text-gray-500 hidden sm:block">{order.user_email}</div>
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          <td className="px-2 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 hidden sm:table-cell">
                             {order.service_name}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          <td className="px-2 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                             GH₵{Number(order.amount).toFixed(2)}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
                             <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                               order.status === 'paid' 
                                 ? 'bg-green-100 text-green-800'
@@ -491,7 +494,7 @@ const AdminDashboard: React.FC = () => {
                               {order.status}
                             </span>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <td className="px-2 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500 hidden lg:table-cell">
                             {new Date(order.created_at).toLocaleDateString()}
                           </td>
                         </tr>
@@ -505,23 +508,24 @@ const AdminDashboard: React.FC = () => {
         ) : (
           /* Services Management */
           <div className="bg-white rounded-xl shadow-sm">
-            <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-lg font-semibold text-gray-900">
+            <div className="px-3 sm:px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900">
                 {activeTab === 'cars' ? 'Car Rentals' : activeTab === 'houses' ? 'House Rentals' : 'Food Items'}
               </h2>
               <button
                 onClick={() => openServiceModal()}
-                className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center space-x-2"
+                className="bg-purple-600 text-white px-2 sm:px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center space-x-1 sm:space-x-2 text-sm"
               >
-                <Plus className="w-4 h-4" />
-                <span>Add {activeTab === 'cars' ? 'Car' : activeTab === 'houses' ? 'House' : 'Food Item'}</span>
+                <Plus className="w-3 sm:w-4 h-3 sm:h-4" />
+                <span className="hidden sm:inline">Add {activeTab === 'cars' ? 'Car' : activeTab === 'houses' ? 'House' : 'Food Item'}</span>
+                <span className="sm:hidden">Add</span>
               </button>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 p-3 sm:p-6">
               {services.map((service) => (
                 <div key={service.id} className="border border-gray-200 rounded-lg overflow-hidden">
-                  <div className="h-48 bg-gray-200">
+                  <div className="h-32 sm:h-48 bg-gray-200">
                     <img
                       src={service.image || getDefaultImage(service.category)}
                       alt={service.name}
@@ -532,9 +536,9 @@ const AdminDashboard: React.FC = () => {
                       }}
                     />
                   </div>
-                  <div className="p-4">
+                  <div className="p-3 sm:p-4">
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-semibold text-gray-900">{service.name}</h3>
+                      <h3 className="font-semibold text-sm sm:text-base text-gray-900 truncate">{service.name}</h3>
                       <span className={`px-2 py-1 text-xs rounded-full ${
                         service.available 
                           ? 'bg-green-100 text-green-800' 
@@ -543,26 +547,26 @@ const AdminDashboard: React.FC = () => {
                         {service.available ? 'Available' : 'Unavailable'}
                       </span>
                     </div>
-                    <p className="text-gray-600 text-sm mb-2 line-clamp-2">{service.description}</p>
+                    <p className="text-gray-600 text-xs sm:text-sm mb-2 line-clamp-2">{service.description}</p>
                     {service.location && (
-                      <p className="text-gray-500 text-xs mb-2">📍 {service.location}</p>
+                      <p className="text-gray-500 text-xs mb-2 truncate">📍 {service.location}</p>
                     )}
                     <div className="flex justify-between items-center">
-                      <span className="text-lg font-bold text-purple-600">
+                      <span className="text-sm sm:text-lg font-bold text-purple-600">
                         GH₵{Number(service.price).toFixed(2)}
                       </span>
                       <div className="flex space-x-2">
                         <button
                           onClick={() => openServiceModal(service)}
-                          className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          className="p-1 sm:p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                         >
-                          <Edit className="w-4 h-4" />
+                          <Edit className="w-3 sm:w-4 h-3 sm:h-4" />
                         </button>
                         <button
                           onClick={() => handleDeleteService(service.id)}
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-1 sm:p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 className="w-3 sm:w-4 h-3 sm:h-4" />
                         </button>
                       </div>
                     </div>
@@ -572,7 +576,7 @@ const AdminDashboard: React.FC = () => {
               
               {services.length === 0 && (
                 <div className="col-span-full text-center py-12">
-                  <p className="text-gray-500">No {activeTab} found. Add your first item!</p>
+                  <p className="text-gray-500 text-sm">No {activeTab} found. Add your first item!</p>
                 </div>
               )}
             </div>
@@ -582,47 +586,47 @@ const AdminDashboard: React.FC = () => {
 
       {/* Service Modal */}
       {showServiceModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-md w-full p-4 max-h-[80vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
+          <div className="bg-white rounded-xl max-w-sm sm:max-w-md w-full p-3 sm:p-4 max-h-[90vh] sm:max-h-[80vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold text-gray-900">
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900">
                 {editingService ? 'Edit' : 'Add'} {activeTab === 'cars' ? 'Car' : activeTab === 'houses' ? 'House' : 'Food Item'}
               </h2>
               <button
                 onClick={closeServiceModal}
                 className="text-gray-400 hover:text-gray-600"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 sm:w-6 h-5 sm:h-6" />
               </button>
             </div>
 
             <form onSubmit={handleServiceSubmit} className="space-y-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Name</label>
                 <input
                   type="text"
                   required
                   value={serviceForm.name}
                   onChange={(e) => setServiceForm({ ...serviceForm, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="Enter name"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Description</label>
                 <textarea
                   required
                   value={serviceForm.description}
                   onChange={(e) => setServiceForm({ ...serviceForm, description: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   rows={2}
                   placeholder="Enter description"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Price (GH₵)</label>
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Price (GH₵)</label>
                 <input
                   type="number"
                   required
@@ -630,29 +634,29 @@ const AdminDashboard: React.FC = () => {
                   step="0.01"
                   value={serviceForm.price}
                   onChange={(e) => setServiceForm({ ...serviceForm, price: parseFloat(e.target.value) || 0 })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="0.00"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Location</label>
                 <input
                   type="text"
                   value={serviceForm.location}
                   onChange={(e) => setServiceForm({ ...serviceForm, location: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="Enter location"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Image URL</label>
                 <input
                   type="url"
                   value={serviceForm.image}
                   onChange={(e) => setServiceForm({ ...serviceForm, image: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="https://example.com/image.jpg"
                 />
               </div>
@@ -665,24 +669,24 @@ const AdminDashboard: React.FC = () => {
                   onChange={(e) => setServiceForm({ ...serviceForm, available: e.target.checked })}
                   className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                 />
-                <label htmlFor="available" className="ml-2 text-sm text-gray-700">
+                <label htmlFor="available" className="ml-2 text-xs sm:text-sm text-gray-700">
                   Available for booking
                 </label>
               </div>
 
-              <div className="flex space-x-3 pt-2">
+              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 pt-2">
                 <button
                   type="button"
                   onClick={closeServiceModal}
-                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex-1 px-4 py-2 text-sm border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center space-x-2"
+                  className="flex-1 px-4 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center space-x-2"
                 >
-                  <Save className="w-4 h-4" />
+                  <Save className="w-3 sm:w-4 h-3 sm:h-4" />
                   <span>{editingService ? 'Update' : 'Create'}</span>
                 </button>
               </div>
