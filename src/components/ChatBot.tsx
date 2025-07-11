@@ -32,7 +32,16 @@ const ChatBot: React.FC = () => {
   const chatId = useRef<string>('');
 
   useEffect(() => {
-    if (isOpen && isInfoProvided) {
+    // If user is logged in, use their info
+    if (user) {
+      setUserInfo({ name: user.name, phone: user.phone });
+      chatId.current = `user_${user.id}`;
+      setIsInfoProvided(true);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (isOpen && isInfoProvided && chatId.current) {
       fetchMessages();
       subscribeToMessages();
     }
@@ -47,7 +56,7 @@ const ChatBot: React.FC = () => {
   };
 
   const generateChatId = (userInfo: UserInfo) => {
-    return `chat_${userInfo.phone.replace(/\D/g, '')}_${Date.now()}`;
+    return `guest_${userInfo.phone.replace(/\D/g, '')}_${Date.now()}`;
   };
 
   const fetchMessages = async () => {
@@ -74,7 +83,7 @@ const ChatBot: React.FC = () => {
     if (!chatId.current) return;
 
     const subscription = supabase
-      .channel('chat_messages')
+      .channel(`chat_${chatId.current}`)
       .on(
         'postgres_changes',
         {
@@ -131,24 +140,37 @@ const ChatBot: React.FC = () => {
     if (!messageText.trim() || !chatId.current) return;
 
     try {
+      const messageData = {
+        sender_id: chatId.current,
+        sender_type: 'member' as const,
+        receiver_type: 'admin' as const,
+        message: messageText,
+        is_group_message: false
+      };
+
       const { error } = await supabase
         .from('chat_messages')
-        .insert({
-          sender_id: chatId.current,
-          sender_type: 'member',
-          receiver_type: 'admin',
-          message: messageText,
-          is_group_message: false
-        });
+        .insert(messageData);
 
       if (error) {
         console.error('Error sending message:', error);
-      } else {
-        if (!isInitial) {
-          setNewMessage('');
-        }
-        
-        // Send notification to admin
+        return;
+      }
+
+      // Add message to local state immediately
+      const newMsg: ChatMessage = {
+        id: Date.now().toString(),
+        ...messageData,
+        created_at: new Date().toISOString()
+      };
+      setMessages(prev => [...prev, newMsg]);
+
+      if (!isInitial) {
+        setNewMessage('');
+      }
+      
+      // Send notification to admin
+      try {
         await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/notify-admin`, {
           method: 'POST',
           headers: {
@@ -162,6 +184,9 @@ const ChatBot: React.FC = () => {
             chatId: chatId.current
           })
         });
+      } catch (notifyError) {
+        console.error('Error notifying admin:', notifyError);
+        // Don't fail the message send if notification fails
       }
     } catch (error) {
       console.error('Error sending message:', error);
@@ -170,7 +195,9 @@ const ChatBot: React.FC = () => {
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    sendMessage(newMessage);
+    if (newMessage.trim()) {
+      sendMessage(newMessage);
+    }
   };
 
   const toggleChat = () => {

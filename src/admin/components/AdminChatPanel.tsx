@@ -32,9 +32,11 @@ const AdminChatPanel: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    fetchChatSessions();
-    subscribeToNewChats();
-  }, []);
+    if (isOpen) {
+      fetchChatSessions();
+      subscribeToNewChats();
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (selectedChat) {
@@ -90,6 +92,10 @@ const AdminChatPanel: React.FC = () => {
           });
         } else {
           const session = sessionsMap.get(chatId)!;
+          if (new Date(message.created_at) > new Date(session.lastMessageTime)) {
+            session.lastMessage = message.message;
+            session.lastMessageTime = message.created_at;
+          }
           session.unreadCount++;
         }
       });
@@ -129,7 +135,7 @@ const AdminChatPanel: React.FC = () => {
 
   const subscribeToNewChats = () => {
     const subscription = supabase
-      .channel('new_chats')
+      .channel('admin_new_chats')
       .on(
         'postgres_changes',
         {
@@ -141,7 +147,6 @@ const AdminChatPanel: React.FC = () => {
         (payload) => {
           const newMessage = payload.new as ChatMessage;
           
-          // Check if this is a new chat session
           setChatSessions(prev => {
             const existingSession = prev.find(s => s.chatId === newMessage.sender_id);
             if (existingSession) {
@@ -184,7 +189,7 @@ const AdminChatPanel: React.FC = () => {
 
   const subscribeToMessages = (chatId: string) => {
     const subscription = supabase
-      .channel(`chat_${chatId}`)
+      .channel(`admin_chat_${chatId}`)
       .on(
         'postgres_changes',
         {
@@ -216,34 +221,32 @@ const AdminChatPanel: React.FC = () => {
     if (!newMessage.trim() || !selectedChat) return;
 
     try {
+      const messageData = {
+        sender_id: 'admin',
+        sender_type: 'admin' as const,
+        receiver_id: selectedChat,
+        receiver_type: 'member' as const,
+        message: newMessage,
+        is_group_message: false
+      };
+
       const { error } = await supabase
         .from('chat_messages')
-        .insert({
-          sender_type: 'admin',
-          receiver_id: selectedChat,
-          receiver_type: 'member',
-          message: newMessage,
-          is_group_message: false
-        });
+        .insert(messageData);
 
       if (error) {
         console.error('Error sending message:', error);
-      } else {
-        setNewMessage('');
-        
-        // Update local messages
-        const newMsg: ChatMessage = {
-          id: Date.now().toString(),
-          sender_id: 'admin',
-          sender_type: 'admin',
-          receiver_id: selectedChat,
-          receiver_type: 'member',
-          message: newMessage,
-          is_group_message: false,
-          created_at: new Date().toISOString()
-        };
-        setMessages(prev => [...prev, newMsg]);
+        return;
       }
+
+      // Add message to local state immediately
+      const newMsg: ChatMessage = {
+        id: Date.now().toString(),
+        ...messageData,
+        created_at: new Date().toISOString()
+      };
+      setMessages(prev => [...prev, newMsg]);
+      setNewMessage('');
     } catch (error) {
       console.error('Error sending message:', error);
     }
