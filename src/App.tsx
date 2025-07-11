@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -14,30 +15,32 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="min-h-screen bg-gray-50">
-          <Routes>
-            <Route path="/admin" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="*" element={
-              <>
-                <Header />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/rent-car" element={<RentCar />} />
-                  <Route path="/rent-house" element={<RentHouse />} />
-                  <Route path="/order-food" element={<OrderFood />} />
-                  <Route path="/thank-you" element={<ThankYou />} />
-                </Routes>
-              </>
-            } />
-          </Routes>
-        </div>
-      </Router>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <Router>
+          <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+            <Routes>
+              <Route path="/admin" element={<AdminLogin />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="*" element={
+                <>
+                  <Header />
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/rent-car" element={<RentCar />} />
+                    <Route path="/rent-house" element={<RentHouse />} />
+                    <Route path="/order-food" element={<OrderFood />} />
+                    <Route path="/thank-you" element={<ThankYou />} />
+                  </Routes>
+                </>
+              } />
+            </Routes>
+          </div>
+        </Router>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

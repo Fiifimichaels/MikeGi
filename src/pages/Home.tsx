@@ -4,9 +4,9 @@ import { Car, Home as HomeIcon, UtensilsCrossed, Star, Users, Shield } from 'luc
 
 const Home: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 text-white py-20">
+      <section className="bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 dark:from-blue-800 dark:via-purple-800 dark:to-blue-900 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
@@ -37,55 +37,55 @@ const Home: React.FC = () => {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
-            <p className="text-xl text-gray-600">Everything you need, all in one place</p>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Our Services</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">Everything you need, all in one place</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             <Link
               to="/rent-car"
-              className="group bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+              className="group bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
             >
-              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-200 transition-colors">
+              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-200 dark:group-hover:bg-blue-800 transition-colors">
                 <Car className="w-8 h-8 text-blue-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Rent a Car</h3>
-              <p className="text-gray-600 mb-6">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Rent a Car</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
                 Choose from our wide selection of vehicles for your transportation needs
               </p>
-              <div className="text-blue-600 font-semibold group-hover:text-blue-700">
+              <div className="text-blue-600 dark:text-blue-400 font-semibold group-hover:text-blue-700 dark:group-hover:text-blue-300">
                 Explore Cars →
               </div>
             </Link>
 
             <Link
               to="/rent-house"
-              className="group bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+              className="group bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
             >
-              <div className="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-green-200 transition-colors">
+              <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-6 group-hover:bg-green-200 dark:group-hover:bg-green-800 transition-colors">
                 <HomeIcon className="w-8 h-8 text-green-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Rent a House</h3>
-              <p className="text-gray-600 mb-6">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Rent a House</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
                 Find the perfect accommodation for your stay, from apartments to villas
               </p>
-              <div className="text-green-600 font-semibold group-hover:text-green-700">
+              <div className="text-green-600 dark:text-green-400 font-semibold group-hover:text-green-700 dark:group-hover:text-green-300">
                 Browse Houses →
               </div>
             </Link>
 
             <Link
               to="/order-food"
-              className="group bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+              className="group bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
             >
-              <div className="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-orange-200 transition-colors">
+              <div className="w-16 h-16 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center mb-6 group-hover:bg-orange-200 dark:group-hover:bg-orange-800 transition-colors">
                 <UtensilsCrossed className="w-8 h-8 text-orange-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Order Food</h3>
-              <p className="text-gray-600 mb-6">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Order Food</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
                 Delicious meals delivered right to your doorstep from local restaurants
               </p>
-              <div className="text-orange-600 font-semibold group-hover:text-orange-700">
+              <div className="text-orange-600 dark:text-orange-400 font-semibold group-hover:text-orange-700 dark:group-hover:text-orange-300">
                 Order Now →
               </div>
             </Link>
@@ -94,40 +94,40 @@ const Home: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section className="bg-white py-20">
+      <section className="bg-white dark:bg-gray-800 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose MikeGi?</h2>
-            <p className="text-xl text-gray-600">We're committed to providing the best service</p>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Why Choose MikeGi?</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">We're committed to providing the best service</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Star className="w-8 h-8 text-blue-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Quality Service</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Quality Service</h3>
+              <p className="text-gray-600 dark:text-gray-300">
                 We ensure all our services meet the highest standards of quality and reliability
               </p>
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Users className="w-8 h-8 text-green-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">24/7 Support</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">24/7 Support</h3>
+              <p className="text-gray-600 dark:text-gray-300">
                 Our customer support team is available round the clock to assist you
               </p>
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Shield className="w-8 h-8 text-purple-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Secure Payments</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Secure Payments</h3>
+              <p className="text-gray-600 dark:text-gray-300">
                 All transactions are secured with industry-standard encryption and security
               </p>
             </div>
@@ -136,7 +136,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
+      <section className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-700 dark:to-purple-700 text-white py-16">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Ready to Get Started?
@@ -146,7 +146,7 @@ const Home: React.FC = () => {
           </p>
           <Link
             to="/register"
-            className="bg-yellow-400 text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors inline-block"
+            className="bg-yellow-400 text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-yellow-300 dark:bg-yellow-500 dark:hover:bg-yellow-400 transition-colors inline-block"
           >
             Create Your Account
           </Link>
