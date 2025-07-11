@@ -55,7 +55,7 @@ const AdminDashboard: React.FC = () => {
         .from('mikegi_orders')
         .select(`
           *,
-          mikegi_users!inner(name, email, phone)
+          user_id(name, email, phone)
         `)
         .order('created_at', { ascending: false })
         .limit(10);
@@ -65,9 +65,9 @@ const AdminDashboard: React.FC = () => {
       } else {
         const formattedOrders = ordersData?.map(order => ({
           ...order,
-          user_name: order.mikegi_users.name,
-          user_email: order.mikegi_users.email,
-          user_phone: order.mikegi_users.phone
+          user_name: order.user_id.name,
+          user_email: order.user_id.email,
+          user_phone: order.user_id.phone
         })) || [];
         setOrders(formattedOrders);
       }
