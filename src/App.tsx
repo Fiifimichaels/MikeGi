@@ -12,6 +12,8 @@ import OrderFood from './pages/OrderFood';
 import ThankYou from './pages/ThankYou';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import ChatBot from './components/ChatBot';
+import AdminChatPanel from './components/AdminChatPanel';
 
 function App() {
   return (
@@ -34,9 +36,12 @@ function App() {
                     <Route path="/order-food" element={<OrderFood />} />
                     <Route path="/thank-you" element={<ThankYou />} />
                   </Routes>
+                  <ChatBot />
                 </>
               } />
             </Routes>
+            {/* Admin Chat Panel - only show for admins */}
+            <AdminChatPanel />
           </div>
         </Router>
       </AuthProvider>

@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase, MikegiOrder } from '../../lib/supabase';
+import AdminChatPanel from '../../components/AdminChatPanel';
 
 interface DashboardStats {
   totalUsers: number;
@@ -264,6 +265,9 @@ const AdminDashboard: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {/* Admin Chat Panel */}
+      <AdminChatPanel />
     </div>
   );
 };
