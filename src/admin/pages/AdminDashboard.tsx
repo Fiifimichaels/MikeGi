@@ -8,11 +8,12 @@ import {
   DollarSign, 
   TrendingUp,
   Calendar,
-  LogOut
+  LogOut,
+  MessageCircle
 } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAdminAuth } from '../../contexts/AdminAuthContext';
 import { supabase, MikegiOrder } from '../../lib/supabase';
-import AdminChatPanel from '../../components/AdminChatPanel';
+import AdminChatPanel from '../components/AdminChatPanel';
 
 interface DashboardStats {
   totalUsers: number;
@@ -28,7 +29,7 @@ interface OrderWithUser extends MikegiOrder {
 }
 
 const AdminDashboard: React.FC = () => {
-  const { user, logout } = useAuth();
+  const { admin, logout } = useAdminAuth();
   const navigate = useNavigate();
   const [orders, setOrders] = useState<OrderWithUser[]>([]);
   const [stats, setStats] = useState<DashboardStats>({
@@ -40,12 +41,12 @@ const AdminDashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user?.is_admin) {
+    if (!admin) {
       navigate('/admin');
       return;
     }
     fetchDashboardData();
-  }, [user, navigate]);
+  }, [admin, navigate]);
 
   const fetchDashboardData = async () => {
     try {
@@ -97,7 +98,7 @@ const AdminDashboard: React.FC = () => {
 
   const handleLogout = async () => {
     await logout();
-    navigate('/');
+    navigate('/admin');
   };
 
   if (loading) {
@@ -124,7 +125,7 @@ const AdminDashboard: React.FC = () => {
               <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-gray-700">Welcome, {user?.name}</span>
+              <span className="text-gray-700">Welcome, {admin?.name}</span>
               <button
                 onClick={handleLogout}
                 className="flex items-center space-x-1 text-gray-500 hover:text-gray-700 transition-colors"

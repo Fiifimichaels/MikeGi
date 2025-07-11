@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Shield, Mail, Lock, Eye, EyeOff } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAdminAuth } from '../../contexts/AdminAuthContext';
 
 const AdminLogin: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -10,14 +10,14 @@ const AdminLogin: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const { login, user } = useAuth();
+  const { login, admin } = useAdminAuth();
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (user?.is_admin) {
+    if (admin) {
       navigate('/admin/dashboard');
     }
-  }, [user, navigate]);
+  }, [admin, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,18 +27,12 @@ const AdminLogin: React.FC = () => {
     const success = await login(email, password);
     
     if (success) {
-      // The auth context will automatically update and redirect if user is admin
-      // If not admin, show error
-      setTimeout(() => {
-        if (!user?.is_admin) {
-          setError('Access denied. Admin privileges required.');
-          setLoading(false);
-        }
-      }, 1000);
+      navigate('/admin/dashboard');
     } else {
       setError('Invalid email or password');
-      setLoading(false);
     }
+    
+    setLoading(false);
   };
 
   return (
@@ -113,10 +107,11 @@ const AdminLogin: React.FC = () => {
           </form>
 
           <div className="mt-6 p-4 bg-purple-50 rounded-lg">
-            <h3 className="font-medium text-purple-900 mb-2">Create Admin Account:</h3>
-            <p className="text-sm text-purple-700">
-              Register a new account and manually set is_admin to true in the database, or contact system administrator.
-            </p>
+            <h3 className="font-medium text-purple-900 mb-2">Demo Admin Credentials:</h3>
+            <div className="text-sm text-purple-700 space-y-1">
+              <p><strong>Email:</strong> admin@mikegi.com</p>
+              <p><strong>Password:</strong> admin123</p>
+            </div>
           </div>
         </div>
       </div>
