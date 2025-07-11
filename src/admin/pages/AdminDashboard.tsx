@@ -88,7 +88,7 @@ const AdminDashboard: React.FC = () => {
         .from('mikegi_orders')
         .select(`
           *,
-          mikegi_users!mikegi_orders_user_id_fkey(name, email, phone)
+          mikegi_users(name, email, phone)
         `)
         .order('created_at', { ascending: false })
         .limit(10);
