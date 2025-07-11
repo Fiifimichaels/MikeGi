@@ -28,6 +28,7 @@ export interface MikegiService {
   category: 'car' | 'house' | 'food';
   available: boolean;
   created_at: string;
+  location?: string;
 }
 
 export interface MikegiOrder {
