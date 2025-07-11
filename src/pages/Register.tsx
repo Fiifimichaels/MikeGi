@@ -36,17 +36,17 @@ const Register: React.FC = () => {
       return;
     }
 
-    const success = await register({
+    const result = await register({
       name: formData.name,
       email: formData.email,
       phone: formData.phone,
       password: formData.password
     });
     
-    if (success) {
+    if (result.success) {
       navigate('/');
     } else {
-      setError('Registration failed. Please try again.');
+      setError(result.message || 'Registration failed. Please try again.');
     }
     
     setLoading(false);

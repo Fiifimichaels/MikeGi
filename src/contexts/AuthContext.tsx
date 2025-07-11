@@ -15,7 +15,7 @@ interface AuthContextType {
   user: MikegiUser | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<boolean>;
-  register: (userData: RegisterData) => Promise<boolean>;
+  register: (userData: RegisterData) => Promise<{ success: boolean; message?: string }>;
   logout: () => Promise<void>;
 }
 
@@ -85,7 +85,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const register = async (userData: RegisterData): Promise<boolean> => {
+  const register = async (userData: RegisterData): Promise<{ success: boolean; message?: string }> => {
     try {
       // Sign up with Supabase Auth
       const { data: authData, error: authError } = await supabase.auth.signUp({
@@ -95,7 +95,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (authError) {
         console.error('Auth error:', authError);
-        return false;
+        
+        // Check for specific error types
+        if (authError.message.includes('User already registered') || authError.message.includes('user_already_exists')) {
+          return { 
+            success: false, 
+            message: 'This email is already registered. Please try logging in instead.' 
+          };
+        }
+        
+        return { 
+          success: false, 
+          message: 'Registration failed. Please try again.' 
+        };
       }
 
       if (authData.user) {
@@ -112,16 +124,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         if (profileError) {
           console.error('Profile creation error:', profileError);
-          return false;
+          return { 
+            success: false, 
+            message: 'Failed to create user profile. Please try again.' 
+          };
         }
 
-        return true;
+        return { success: true };
       }
 
-      return false;
+      return { 
+        success: false, 
+        message: 'Registration failed. Please try again.' 
+      };
     } catch (error) {
       console.error('Registration error:', error);
-      return false;
+      return { 
+        success: false, 
+        message: 'An unexpected error occurred. Please try again.' 
+      };
     }
   };
 

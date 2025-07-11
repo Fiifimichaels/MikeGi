@@ -4,7 +4,7 @@ export type { MikegiUser as User, MikegiService as Service, MikegiOrder as Order
 export interface AuthContextType {
   user: MikegiUser | null;
   login: (email: string, password: string) => Promise<boolean>;
-  register: (userData: RegisterData) => Promise<boolean>;
+  register: (userData: RegisterData) => Promise<{ success: boolean; message?: string }>;
   logout: () => Promise<void>;
   loading: boolean;
 }
