@@ -107,6 +107,12 @@ const Login: React.FC = () => {
                 Sign up here
               </Link>
             </p>
+            <p className="text-gray-600 mt-2">
+              Are you a vendor?{' '}
+              <Link to="/vendor/login" className="text-green-600 hover:text-green-700 font-medium">
+                Vendor login
+              </Link>
+            </p>
           </div>
         </form>
 

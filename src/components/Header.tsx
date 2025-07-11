@@ -87,6 +87,12 @@ const Header: React.FC = () => {
                 >
                   Register
                 </Link>
+                <Link
+                  to="/vendor/register"
+                  className="bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm"
+                >
+                  Sell
+                </Link>
                 <ThemeToggle />
               </div>
             )}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Lock, User, Phone, Eye, EyeOff } from 'lucide-react';
+import { Mail, Lock, User, Phone, Eye, EyeOff, Store, Users } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const Register: React.FC = () => {
@@ -63,6 +63,53 @@ const Register: React.FC = () => {
           <p className="mt-2 text-gray-600">Join MikeGi and access all our services</p>
         </div>
 
+        {/* Registration Type Selection */}
+        <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">Choose Registration Type</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="border-2 border-blue-200 rounded-lg p-4 bg-blue-50">
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <Users className="w-5 h-5 text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-blue-900">Customer Account</h4>
+                  <p className="text-sm text-blue-700">Buy services and products</p>
+                </div>
+              </div>
+              <ul className="text-sm text-blue-700 space-y-1">
+                <li>• Rent cars and houses</li>
+                <li>• Order food delivery</li>
+                <li>• Browse all services</li>
+                <li>• Free registration</li>
+              </ul>
+            </div>
+
+            <Link
+              to="/vendor/register"
+              className="border-2 border-green-200 rounded-lg p-4 bg-green-50 hover:bg-green-100 transition-colors group"
+            >
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors">
+                  <Store className="w-5 h-5 text-green-600" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-green-900">Vendor Account</h4>
+                  <p className="text-sm text-green-700">Sell your services</p>
+                </div>
+              </div>
+              <ul className="text-sm text-green-700 space-y-1">
+                <li>• List your cars, houses, food</li>
+                <li>• Receive orders & payments</li>
+                <li>• Manage your business</li>
+                <li>• Monthly subscription: GH₵50</li>
+              </ul>
+              <div className="mt-3 text-center">
+                <span className="text-green-600 font-medium text-sm">Click to register as vendor →</span>
+              </div>
+            </Link>
+          </div>
+        </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
@@ -187,6 +234,12 @@ const Register: React.FC = () => {
               Already have an account?{' '}
               <Link to="/login" className="text-blue-600 hover:text-blue-700 font-medium">
                 Sign in here
+              </Link>
+            </p>
+            <p className="text-gray-600 mt-2">
+              Want to sell instead?{' '}
+              <Link to="/vendor/register" className="text-green-600 hover:text-green-700 font-medium">
+                Register as vendor
               </Link>
             </p>
           </div>
