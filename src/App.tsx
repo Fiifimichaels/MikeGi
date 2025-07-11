@@ -11,6 +11,7 @@ import RentCar from './pages/RentCar';
 import RentHouse from './pages/RentHouse';
 import OrderFood from './pages/OrderFood';
 import ThankYou from './pages/ThankYou';
+import About from './pages/About';
 import AdminLogin from './admin/pages/AdminLogin';
 import AdminDashboard from './admin/pages/AdminDashboard';
 import ChatBot from './components/ChatBot';
@@ -36,6 +37,7 @@ function App() {
                       <Route path="/" element={<Home />} />
                       <Route path="/login" element={<Login />} />
                       <Route path="/register" element={<Register />} />
+                      <Route path="/about" element={<About />} />
                       <Route path="/rent-car" element={<RentCar />} />
                       <Route path="/rent-house" element={<RentHouse />} />
                       <Route path="/order-food" element={<OrderFood />} />
