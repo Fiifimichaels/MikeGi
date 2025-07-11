@@ -1,4 +1,4 @@
-/*
+
   # Create MikeGi Platform Database Schema
 
   1. New Tables
